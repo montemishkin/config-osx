@@ -8,6 +8,3 @@ alias la='ls -AFGhl'
 
 # rpi: ssh to raspberry pi
 alias rpi='ssh pi@192.168.1.8'
-
-# nprs: node package run script
-alias nprs='npm run-script'
