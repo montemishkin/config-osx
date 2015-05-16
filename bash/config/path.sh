@@ -5,6 +5,9 @@ export PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
 #   adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:/Users/montemishkin/tools/bin:$PATH"
 
+# virtualenvwrapper settings
+source /opt/local/Library/Frameworks/Python.framework/Versions/3.4/bin/virtualenvwrapper.sh
+
 # local node bin
 export PATH="$HOME/.node/bin:$PATH"
 
