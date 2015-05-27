@@ -20,3 +20,14 @@ alias rpi-scan='nmap -p 22 --open -sV 192.168.0-3.0-20'
 alias enc='openssl aes-256-cbc -a'
 # decode
 alias dec='openssl aes-256-cbc -a -d'
+
+# gs: git status
+alias gs='git status'
+# gl: git log
+#   --oneline show short message only, one per line
+alias gl='git log --oneline'
+# ga: git add
+alias ga='git add'
+# gc: git commit
+#   -m message (follow with the commit message)
+alias gc='git commit -m'
