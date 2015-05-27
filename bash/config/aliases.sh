@@ -23,6 +23,8 @@ alias dec='openssl aes-256-cbc -a -d'
 
 # gs: git status
 alias gs='git status'
+# gd: git diff
+alias gd='git diff'
 # gl: git log
 #   --oneline show short message only, one per line
 alias gl='git log --oneline'
