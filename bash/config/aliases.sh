@@ -7,4 +7,11 @@
 alias la='ls -AFGhl'
 
 # rpi: ssh to raspberry pi
-alias rpi='ssh pi@192.168.1.8'
+alias rpi='ssh pi@192.168.1.11'
+
+# rpi-scan: scan for open IP addresses to find the raspberry pi
+#   -p 22 --open      scan for open port 22's
+#   -sV               probe open ports to determine service/version info
+#   192.168.0-3.0-20  the range of IP addresses to scan
+alias rpi-scan='nmap -p 22 --open -sV 192.168.0-3.0-20'
+
