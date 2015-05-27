@@ -1,2 +1,5 @@
-python=python2.7
-prefix=~/.node
+; use python 2.7 rather than 3
+python = python2.7
+
+; local node bin
+prefix = ~/.node
