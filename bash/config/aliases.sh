@@ -15,3 +15,8 @@ alias rpi='ssh pi@192.168.1.11'
 #   192.168.0-3.0-20  the range of IP addresses to scan
 alias rpi-scan='nmap -p 22 --open -sV 192.168.0-3.0-20'
 
+# encode: encode file
+#   for example: `enc -in infile.txt -out oufile.enc`
+alias enc='openssl aes-256-cbc -a'
+# decode
+alias dec='openssl aes-256-cbc -a -d'
