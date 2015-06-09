@@ -21,6 +21,6 @@ export WORKON_HOME=$HOME/.virtualenvs
 # the directory where your projects will go (it is not vital to set this)
 export PROJECT_HOME=$HOME/mdv
 # the python executable to run virtualenvwrapper with
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2.7
 # the actual virtualenvwrapper script
 source /usr/local/bin/virtualenvwrapper.sh

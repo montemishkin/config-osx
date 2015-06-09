@@ -6,6 +6,9 @@
 #   -l long format
 alias la='ls -AFGhl'
 
+# I always want python3 inside my virtual environments
+alias mkvirtualenv='mkvirtualenv -p /usr/local/bin/python3'
+
 # rpi: ssh to raspberry pi
 alias rpi='ssh pi@192.168.1.11'
 
