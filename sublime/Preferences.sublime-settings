@@ -1,19 +1,32 @@
 {
 	"auto_complete": false,
 	"bold_folder_labels": true,
-    "highlight_modified_tabs": true,
 	"close_windows_when_empty": true,
 	"color_scheme": "Packages/Color Scheme - Default/Sunburst.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		"node_modules",
+		"__pycache__"
+	],
 	"font_size": 13.0,
+	"highlight_modified_tabs": true,
 	"hot_exit": false,
-	"ignored_packages": [],
+	"ignored_packages":
+	[
+	],
 	"open_files_in_new_window": true,
 	"remember_open_files": false,
-	"rulers": [79],
+	"rulers":
+	[
+		79
+	],
+	"scroll_past_end": true,
 	"translate_tabs_to_spaces": true,
-	"use_tab_stops": true,
-    "scroll_past_end": true,
-    "trim_trailing_white_space_on_save": true,
-    "folder_exclude_patterns": [".svn", ".git", ".hg", "CVS", "node_modules", "__pycache__"]
+	"trim_trailing_white_space_on_save": true,
+	"use_tab_stops": true
 }
