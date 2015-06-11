@@ -2,7 +2,7 @@
 
 # Links up the system to my various configuration files
 # by creating symbolic links from the locations known by
-# the system to the corresponding files in my dotfiles
+# the system to the corresponding files in my config
 # repository.
 # Saves previously existing configurations (if any) to
 # the path provided by the first argument to the script
@@ -19,6 +19,9 @@ else
     save_dir="$HOME/config.$(date +%Y-%m-%d_%H.%M.%S)"
 fi
 
+# #
+# Helper Functions
+# #
 
 # first argument is path where config file is expected to be
 # second argument is path where config file actually is
@@ -29,7 +32,7 @@ save_then_link() {
     # otherwise, $1 does not exist or is not a directory
     else
         # if $1 does exist but is not a directory
-        if [ -a "$1" ]; then
+        if [ -a "$1" ] || [ -h "$1" ]; then
             # if $save_dir has not been made yet
             if [ ! -d "$save_dir" ]; then
                 echo "making directory $save_dir to save old copies of config files to"
@@ -51,10 +54,17 @@ save_then_link() {
 }
 
 
-dotfiles="$HOME/mdv/dotfiles"
+# #
+# Main Script
+# #
 
-save_then_link "$HOME/.bash_profile" "$dotfiles/bash/bash_profile.sh"
-save_then_link "$HOME/.gitconfig" "$dotfiles/git/gitconfig"
-save_then_link "$HOME/.npmrc" "$dotfiles/npm/npmrc"
-save_then_link "$HOME/.vimrc" "$dotfiles/vim/vimrc"
-save_then_link "$HOME/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings" "$dotfiles/sublime/Preferences.sublime-settings"
+
+# path to config repository
+repo_path="$HOME/mdv/config"
+
+# do the actual linking
+save_then_link "$HOME/.bash_profile" "$repo_path/bash/bash_profile.sh"
+save_then_link "$HOME/.gitconfig" "$repo_path/git/gitconfig"
+save_then_link "$HOME/.npmrc" "$repo_path/npm/npmrc"
+save_then_link "$HOME/.vimrc" "$repo_path/vim/vimrc"
+save_then_link "$HOME/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings" "$repo_path/sublime/Preferences.sublime-settings"
