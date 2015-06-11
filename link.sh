@@ -9,6 +9,8 @@
 # (defaults to a timestamped directory under `$HOME`).
 
 
+
+
 # if an argument was passed to this script
 if [ ! -z "$1" ]; then
     # then use it as the dir to save old config files to
@@ -19,9 +21,6 @@ else
     save_dir="$HOME/config.$(date +%Y-%m-%d_%H.%M.%S)"
 fi
 
-# #
-# Helper Functions
-# #
 
 # first argument is path where config file is expected to be
 # second argument is path where config file actually is
@@ -52,11 +51,6 @@ save_then_link() {
         ln -s "$2" "$1"
     fi
 }
-
-
-# #
-# Main Script
-# #
 
 
 # path to config repository
