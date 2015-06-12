@@ -1,0 +1,243 @@
+#!/opt/local/bin/python
+
+"""
+Stupid LaTex templating to save me time by wasting time to write this.
+"""
+
+import sys
+import os
+import re
+import json
+import jinja2
+import datetime
+
+
+'--------------------------------------------------------------------------'
+
+def get_args(args):
+    """
+    Check and then return the arguments passed to the script.
+
+    First arg is path to template file. 
+        Must be valid file path.
+    Second arg is path to context file. 
+        Must be valid file path.
+    Third arg is path to target dir. 
+        Must be valid dir path.
+        This is where the folder for the generated problemset will be placed.
+        Defaults to directory where script called from.
+    """
+    # check first argument
+    try:
+        # path to template file is first argument
+        template_path = args[1]
+    # no first argument provided
+    except IndexError:
+        raise ValueError('No template file provided (should be first argument)')
+    # first argument was provided
+    else:
+        # make sure it is a valid file path
+        if not os.path.isfile(template_path):
+            raise ValueError(
+                '{} is not a valid file path'.format(template_path)
+            )
+
+    # check second argument
+    try:
+        # path to context file is second argument
+        context_path = args[2]
+    # no second argument provided
+    except IndexError:
+        raise ValueError('No context file provided (should be second argument)')
+    # second argument was provided
+    else:
+        # make sure it is a valid file path
+        if not os.path.isfile(context_path):
+            raise ValueError(
+                '{} is not a valid file path'.format(context_path)
+            )
+
+    # check third argument
+    try:
+        # path to target directory is third argument
+        target_path = args[3]
+    # no third argument provided
+    except IndexError:
+        # default target path is the directory called from
+        target_path = '.'
+
+    # return the three checked args in same order
+    return template_path, context_path, target_path
+
+
+def load_context(path):
+    # load the context json object
+    with open(path, 'r') as file:
+        return json.load(file)
+
+
+def process_context(context):
+    """
+    Fix `context` to be exactly what you want to render into the template.
+
+    This step would not be necessary if you just wrote the proper structure
+    into the context.json file.  However, that would be annoying to do for
+    every homework assignment, so instead this script will process the 
+    shorthand into the proper context for the template.  In particular:
+        * `due_date` is changed from `2015-02-19` to `February 19, 2015`
+        * each entry in the `problems` list is handled according to the 
+            conventions detailed below.
+
+    Actually, I don't feel like detailing them super specifically.  Basically
+        * "4.11" -> {"description": "Griffiths 4.11", "parts": None}
+        * "4.13(a,c-e)" -> 
+            {"description": "Griffiths 4.13", "parts": [0, 2, 3, 4]}
+        * "Summary of Article" -> 
+            {"description": "Summary of Article", "parts": None}
+    """
+    # make a copy
+    result = dict(context)
+    # delete the unwanted keys
+    del result['textbook_author']
+    # delete the keys that will be overwritten
+    del result['due_date']
+    del result['problems']
+
+    # format date
+    result['due_date'] = '{date:%B} {date.day}, {date.year}'.format(
+        date=datetime.date(*(int(i) for i in context['due_date'].split('-')))
+    )
+
+    # format problems
+    problem_re = re.compile(
+        # ex: "8.11(a-c,f)"
+        r'^(?P<number>[\d.]+)(\((?P<parts>([a-z](-[a-z])?,)*[a-z](-[a-z])?)\))?$'
+    )
+    result['problems'] = []
+    for problem in context['problems']:
+        match = problem_re.search(problem)
+        # if it is a book problem
+        if match:
+            description = '{0} {1}'.format(
+                context['textbook_author'],
+                match.group('number')
+            )
+            # if the problem has parts
+            if match.group('parts'):
+                parts = []
+                for part in [s.lower() for s in match.group('parts').split(',')]:
+                    # if it is a range of parts
+                    if '-' in part:
+                        for i in range(ord(part[0]) - ord('a'),
+                                       ord(part[2]) - ord('a') + 1):
+                            parts.append(i)
+                    # otherwise it is just a single part
+                    else:
+                        parts.append(ord(part) - ord('a'))
+            # otherwise it has no parts
+            else:
+                parts = None
+        # otherwise it is a non-book problem
+        else:
+            description = problem
+            parts = None
+        # add it to the results context
+        result['problems'].append({
+            'description': description,
+            'parts': parts
+        })
+
+    return result
+
+
+def create_jinja_environment(load_path):
+    """
+    Return a jinja environment customized for LaTex 
+    and set to load from `load_path`.
+    """
+    LATEX_SUBS = (
+        # (pattern to escape, what to replace it with)
+        (re.compile(r'\\'), r'\\textbackslash'),
+        (re.compile(r'([{}_#%&$])'), r'\\\1'),
+        (re.compile(r'~'), r'\~{}'),
+        (re.compile(r'\^'), r'\^{}'),
+        (re.compile(r'"'), r"''"),
+        (re.compile(r'\.\.\.+'), r'\\ldots'),
+    )
+
+    def escape_tex(value):
+        """
+        Escapes special characters in the given LaTex string.
+        """
+        newval = value
+        for pattern, replacement in LATEX_SUBS:
+            newval = pattern.sub(replacement, newval)
+        return newval
+
+    # load templates from the given path
+    loader = jinja2.FileSystemLoader(load_path)
+    # create the environment with the given loader
+    env = jinja2.Environment(loader=loader)
+    # set the custom environment parameters
+    env.block_start_string = '<%'
+    env.block_end_string = '%>'
+    env.variable_start_string = '<<'
+    env.variable_end_string = '>>'
+    env.comment_start_string = '<#'
+    env.comment_end_string = '#>'
+    env.filters['escape_tex'] = escape_tex
+
+    return env
+
+
+def generate_output(template, context, target_path):
+    """
+    Renders `template` with `context` into a folder made at `target_path`.
+    """
+    # basename of the folder to put the rendered LaTex file in
+    dir_name = '{0}{1}_hw{2}'.format(
+        context['course'][0], 
+        context['course'].split()[1],
+        context['assignment_number']
+    ).lower()
+
+    # path to inside the directory (put the rendered LaTex file here)
+    dir_path = os.path.join(target_path, dir_name)
+    # if that directory already exists
+    if os.path.isdir(dir_path):
+        # raise error rather than overwrite it
+        raise ValueError('{} directory already exists'.format(dir_path))
+    else:
+        # otherwise, make it
+        os.mkdir(dir_path)
+
+    # path to the output (rendered LaTex) file
+    output_path = os.path.join(dir_path, dir_name + '.tex')
+
+    # write the rendered template to the output
+    with open(output_path, 'w') as output_file:
+        output_file.write(template.render(context))
+
+
+'--------------------------------------------------------------------------'
+
+if __name__ == '__main__':
+    # get the arguments from the caller
+    template_path, context_path, target_path = get_args(sys.argv)
+
+    # load the context
+    context = load_context(context_path)
+
+    # process the context 
+    context = process_context(context)
+
+    # split up the template path into dir and basename
+    template_dir, template_name = os.path.split(template_path)
+    # prepare the jinja environment
+    jinja_env = create_jinja_environment(load_path=template_dir)
+    # load the template
+    template = jinja_env.get_template(template_name)
+
+    # generate the folder and rendered LaTex file for the assignment
+    generate_output(template, context, target_path)
+

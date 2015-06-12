@@ -1,0 +1,75 @@
+#!/usr/local/bin/python3
+
+import sys
+import os
+import gzip
+
+
+# the relevant extensions
+ALS_EXT = '.als'
+NOTALS_EXT = '.notals'
+
+
+def make_tool(in_ext, out_ext, in_open, out_open):
+    def tool(file_paths):
+        for path in file_paths:
+            # split file path into root and extension
+            (root, ext) = os.path.splitext(path)
+            # if the extension is wrong, raise an error
+            if ext != in_ext:
+                raise ValueError(
+                    '{0} is does not have extension {1}'.format(path, in_ext)
+                )
+            # translate the file
+            with in_open(path, 'rb') as in_file:
+                with out_open(root + out_ext, 'wb') as out_file:
+                    out_file.writelines(in_file)
+            # delete the old file
+            os.remove(path)
+    return tool
+
+
+# make the the desired tools
+un_als = make_tool(ALS_EXT, NOTALS_EXT, gzip.open, open)
+re_als = make_tool(NOTALS_EXT, ALS_EXT, open, gzip.open)
+
+
+if __name__ == '__main__':
+    # the base name that the script was called by
+    called_as = os.path.basename(sys.argv[0]).lower()
+    # use `called_as` to decide which tool to use and which extension to act on
+    if called_as == 'unals':
+        # convert ALS files to NOTALS files
+        tool = un_als
+        ext = ALS_EXT
+    elif called_as == 'reals':
+        # convert NOTALS files to ALS files
+        tool = re_als
+        ext = NOTALS_EXT
+    else:
+        raise ValueError('Do not call this script as {}'.format(called_as))
+
+    try:
+        # first argument specifies target
+        target = sys.argv[1]
+    except IndexError:
+        # default target is directory called from
+        target = '.'
+
+    # if `target` is a directory
+    if os.path.isdir(target):
+        # collect all files in that directory with the specified extension
+        files = (os.path.join(target, f)
+                    for f in os.listdir(target)
+                        if os.path.splitext(f)[1] == ext)
+    # if `target` is a file
+    elif os.path.isfile(target):
+        # collect only the specified `target`
+        files = (target, )
+    else:
+        raise ValueError(
+            '{} is not an existing file or directory'.format(target)
+        )
+
+    # execute the tool on the files
+    tool(files)
