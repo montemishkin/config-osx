@@ -3,3 +3,5 @@ python = python2.7
 
 ; local node bin
 prefix = ~/.node
+
+//registry.npmjs.org/:_authToken=828ecdcc-b4c0-4888-af7b-e39cd30b1c39
