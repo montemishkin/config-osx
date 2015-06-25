@@ -68,6 +68,8 @@ save_then_link "$HOME/.gitconfig" "$repo_path/git/gitconfig" "$save_dir"
 save_then_link "$HOME/.npmrc" "$repo_path/npm/npmrc" "$save_dir"
 save_then_link "$HOME/.vimrc" "$repo_path/vim/vimrc" "$save_dir"
 save_then_link "$HOME/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings" "$repo_path/sublime/Preferences.sublime-settings" "$save_dir"
+save_then_link "$HOME/Library/Application Support/Sublime Text 2/Packages/MarkdownEditing/Preferences.sublime-settings" "$repo_path/sublime/Markdown.sublime-settings" "$save_dir"
+save_then_link "$HOME/Library/Application Support/Sublime Text 2/Packages/User/JavaScript (Babel).sublime-settings" "$repo_path/sublime/JavaScript (Babel).sublime-settings" "$save_dir"
 
 # Handle the special case of my local bin directory.
 # What I need to do here is copy things from my local bin directory into
