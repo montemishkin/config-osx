@@ -30,7 +30,8 @@ alias gs='git status'
 alias gd='git diff'
 # gl: git log
 #   --oneline show short message only, one per line
-alias gl='git log --oneline'
+#   -n 10 only show the most recent 10 commits
+alias gl='git log --oneline -n 10'
 # ga: git add
 alias ga='git add'
 # gc: git commit
