@@ -5,7 +5,11 @@ Dotfiles and other configuration for my OSX machine.
 
 ## Quickstart
 
-To get up and running with these configuration files, clone this repository into `$HOME/mdv/config`, `cd` into that directory, and then run `link.sh`.
+To get up and running with these configuration files:
+
+1. Clone this repository into `$HOME/mdv/config`
+1. `cd` into that directory
+1. Run `link.sh`
 
 It's as easy as that! Almost...
 
@@ -20,6 +24,7 @@ This quickstart will fail if the system you are trying to get up and running on 
 - `pip3` must be installed at `/usr/local/bin/pip3`
 - `python2.7` must be installed at `/usr/local/bin/python2.7`
 - `virtualenvwrapper.sh` must be installed **for python2.7** at `/usr/local/bin/virtualenvwrapper.sh`
+- Probably some more stuff I can't think of right now... I'll fix that one day.
 
 
 ## link.sh
