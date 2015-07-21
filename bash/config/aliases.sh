@@ -34,7 +34,7 @@ alias gd='git diff'
 # "git log"
 #   `--oneline`: show short message only, one per line
 #   `-n 10`: only show 10 most recent commits
-alias gl='git log --oneline'
+alias gl='git log --oneline -n 10'
 # "git add"
 alias ga='git add'
 # "git commit"
