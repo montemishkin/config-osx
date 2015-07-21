@@ -1,3 +1,8 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Bash profile for my OSX machine.
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
 # secret environment variables
 source "$HOME/.secret.monte"
 

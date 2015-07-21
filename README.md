@@ -21,9 +21,9 @@ This quickstart will fail if the system you are trying to get up and running on 
 - as of right now, this repository **must** be cloned to `$HOME/mdv/config`
 - you will see an (unproblematic) error if you do not have homebrew installed (when it tries to source the homebrew bash completion script)
 - `python3` must be installed at `/usr/local/bin/python3`
-- `pip3` must be installed at `/usr/local/bin/pip3`
-- `python2.7` must be installed at `/usr/local/bin/python2.7`
-- `virtualenvwrapper.sh` must be installed **for python2.7** at `/usr/local/bin/virtualenvwrapper.sh`
+    + `pip3` must be installed at `/usr/local/bin/pip3`
+    + `virtualenvwrapper.sh` must be installed **for python3** at `/usr/local/bin/virtualenvwrapper.sh`
+- `python2.7` must be installed at `/usr/local/bin/python2.7` (or does it?)
 - Probably some more stuff I can't think of right now... I'll fix that one day.
 
 

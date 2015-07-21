@@ -5,3 +5,6 @@ python = python2.7
 prefix = ~/.node
 
 //registry.npmjs.org/:_authToken=${SECRET_NPM_REGISTRY_AUTH_TOKEN}
+
+
+; end of file

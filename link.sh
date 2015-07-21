@@ -76,10 +76,17 @@ save_then_link "$HOME/Library/Application Support/Sublime Text 2/Packages/User/J
 # a bin directory under `$save_dir`.  If the thing in my local bin
 # is a script, it should be copied entirely, but if it is a link then it
 # should just be copied as a link (not followed).
-echo "making directory $save_dir/bin to save old copies of $HOME/bin files to"
-echo "links in $HOME/bin will be copied, but not followed"
-mkdir "$save_dir/bin"
-for exe_path in $HOME/bin/*; do
-    echo "saving old copy of $exe_path"
-    cp -R "$exe_path" "$save_dir/bin/"
-done
+
+# if there is a local bin
+if [ -a "$HOME/bin" ]; then
+    echo "making directory $save_dir/bin to save old copies of $HOME/bin files to"
+    echo "links in $HOME/bin will be copied, but not followed"
+    mkdir "$save_dir/bin"
+    for exe_path in $HOME/bin/*; do
+        echo "saving old copy of $exe_path"
+        cp -R "$exe_path" "$save_dir/bin/"
+    done
+fi
+
+
+# end of file
