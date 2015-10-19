@@ -38,8 +38,9 @@ alias gl='git log --oneline -n 10'
 # "git graph"
 #   `--oneline`: show short message only, one per line
 #   `--graph`: show history in branch network graph style
-#   `--all`: show all commits (including branches not related to current branch)
-alias gg='git log --oneline --graph --all'
+#   `--all`: show commits from all branches (including those not related to current branch)
+#   `-n 10`: only show 10 most recent commits 
+alias gg='git log --oneline --graph --all -n 10'
 # "git add"
 alias ga='git add'
 # "git commit"
