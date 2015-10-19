@@ -35,6 +35,11 @@ alias gd='git diff'
 #   `--oneline`: show short message only, one per line
 #   `-n 10`: only show 10 most recent commits
 alias gl='git log --oneline -n 10'
+# "git graph"
+#   `--oneline`: show short message only, one per line
+#   `--graph`: show history in branch network graph style
+#   `--all`: show all commits (including branches not related to current branch)
+alias gg='git log --oneline --graph --all'
 # "git add"
 alias ga='git add'
 # "git commit"
