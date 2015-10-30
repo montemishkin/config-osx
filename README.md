@@ -1,4 +1,4 @@
-# config
+# config-osx
 
 Dotfiles and other configuration for my OSX machine.
 
