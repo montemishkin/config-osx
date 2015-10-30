@@ -7,7 +7,7 @@ Dotfiles and other configuration for my OSX machine.
 
 To get up and running with these configuration files:
 
-1. Clone this repository into `$HOME/mdv/config`
+1. Clone this repository into `$HOME/mdv/config-osx`
 1. `cd` into that directory
 1. Run `link.sh`
 
@@ -18,7 +18,7 @@ It's as easy as that! Almost...
 This quickstart will fail if the system you are trying to get up and running on does not meet any of the following requirements:
 
 - system must expect the files to be at the locations where `link.sh` puts links to them (duh)
-- as of right now, this repository **must** be cloned to `$HOME/mdv/config`
+- as of right now, this repository **must** be cloned to `$HOME/mdv/config-osx`
 - you will see an (unproblematic) error if you do not have homebrew installed (when it tries to source the homebrew bash completion script)
 - `python3` must be installed at `/usr/local/bin/python3`
     + `pip3` must be installed at `/usr/local/bin/pip3`

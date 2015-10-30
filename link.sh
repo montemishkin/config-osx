@@ -60,7 +60,7 @@ else
 fi
 
 # path to config repository
-repo_path="$HOME/mdv/config"
+repo_path="$HOME/mdv/config-osx"
 
 # do the actual linking
 save_then_link "$HOME/.bash_profile" "$repo_path/bash/bash_profile.sh" "$save_dir"

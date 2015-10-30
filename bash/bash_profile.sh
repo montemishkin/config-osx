@@ -8,7 +8,7 @@ source "$HOME/.secret.monte"
 
 
 # path to config repository
-repo_path="$HOME/mdv/config"
+repo_path="$HOME/mdv/config-osx"
 
 # monte's custom stuff
 source "$repo_path/bash/config/exports.sh"
