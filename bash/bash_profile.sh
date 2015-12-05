@@ -17,5 +17,5 @@ source "$repo_path/bash/config/setopts.sh"
 source "$repo_path/bash/config/prompt.sh"
 source "$repo_path/bash/config/completion.sh"
 
-
-# end of file
+# welcome user
+echo "Welcome, I hope you are doing well."
