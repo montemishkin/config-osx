@@ -12,6 +12,15 @@
 alias la='ls -AFGhl'
 
 
+# "tree list"
+#   `-a`: all except . and ..
+#   `-p`: show file permissions
+#   `-F`: file type indicators
+#   `-C`: colorized output
+#
+alias tl='tree -pFC'
+
+
 # "raspberry pi": ssh to raspberry pi
 alias rpi='ssh pi@10.0.0.29'
 # "raspberry pi scan": scan for open IP addresses to find the raspberry pi
@@ -39,13 +48,16 @@ alias gl='git log --oneline -n 10'
 #   `--oneline`: show short message only, one per line
 #   `--graph`: show history in branch network graph style
 #   `--all`: show commits from all branches (including those not related to current branch)
-#   `-n 10`: only show 10 most recent commits 
+#   `-n 10`: only show 10 most recent commits
 alias gg='git log --oneline --graph --all -n 10'
 # "git add"
 alias ga='git add'
 # "git commit"
 #   `-m`: message (follow with the commit message)
 alias gc='git commit -m'
+
+# blender
+alias blender='/Applications/blender.app/Contents/MacOS/blender'
 
 
 # end of file
