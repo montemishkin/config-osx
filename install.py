@@ -60,6 +60,11 @@ echo "Welcome, I hope you are doing well."
 #   `-l`: full info, one per line
 alias la='ls -AFGhl'
 
+# plays a sound
+# used to alert of task completion
+# e.g. `./my-long-build.py && alert`
+alias alert='afplay /System/Library/Sounds/Purr.aiff'
+
 # "git status"
 alias gs='git status'
 # "git diff"
