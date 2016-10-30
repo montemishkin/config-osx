@@ -101,6 +101,13 @@ alias la='ls -AFGhl'
 # e.g. `./my-long-build.py && alert`
 alias alert='afplay /System/Library/Sounds/Purr.aiff'
 
+# start a new git-lfs art project
+art() {
+  git clone git@github.com:montemishkin/art.git $1
+  cd $1
+  ./init.sh
+}
+
 # "git status"
 alias gs='git status'
 # "git diff"
