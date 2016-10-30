@@ -102,11 +102,11 @@ alias la='ls -AFGhl'
 alias alert='afplay /System/Library/Sounds/Purr.aiff'
 
 # start a new git-lfs art project
-art() {
+art() {{
   git clone git@github.com:montemishkin/art.git $1
   cd $1
   ./init.sh
-}
+}}
 
 # "git status"
 alias gs='git status'
