@@ -149,8 +149,8 @@ email = getUserValue(
     lambda em: 'email = "{}" (y/n)? '.format(em),
 )
 try:
-    subprocess.call('git config user.email {}'.format(email), shell=True)
-    subprocess.call('git config user.name "Monte Mishkin"', shell=True)
+    subprocess.call('git config --global user.email {}'.format(email), shell=True)
+    subprocess.call('git config --global user.name "Monte Mishkin"', shell=True)
 except Exception as ex:
     print('problem with git:')
     raise ex
